@@ -2,4 +2,4 @@
 
 Under development
 
-Link: preview[https://cout05.github.io/tictactoe-collab/]
+[Site preview](https://cout05.github.io/tictactoe-collab/)
