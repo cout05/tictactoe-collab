@@ -10,6 +10,7 @@ body {
 
 .container {
   border: 1px solid black;
+  text-align: center;
 }
 
 .column {
@@ -25,5 +26,11 @@ body {
   height: 100px;
   border: 1px solid black;
   border-collapse: collapse;
+  cursor: pointer;
+}
+.restart-button {
+  margin-top: 20px;
+  font-size: 16px;
+  padding: 10px 20px;
   cursor: pointer;
 }
