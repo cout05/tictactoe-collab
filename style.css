@@ -28,7 +28,7 @@ body {
   border-collapse: collapse;
   cursor: pointer;
 }
-.restart-button {
+.restart-button #gameMode {
   margin-top: 20px;
   font-size: 16px;
   padding: 10px 20px;

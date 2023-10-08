@@ -1,36 +1,82 @@
 const cells = document.querySelectorAll(".row");
 const turnDisplay = document.getElementById("turn");
 const restartButton = document.getElementById("restartButton");
+const computerToggle = document.getElementById("computerToggle");
 
 let game = "X"; // Letter to input
 let gameBoard = ["", "", "", "", "", "", "", "", ""]; // Initial column spaces value
+let isComputerPlayer = false;
+let currentPlayer = "Player 1"; // Add currentPlayer variable to keep track of the current player
 
-// function to input the letter and identify the winner
+
+function toggleComputerPlayer() {
+  isComputerPlayer = !isComputerPlayer;
+  if (isComputerPlayer) {
+    computerToggle.textContent = "Play with Another Player";
+  } else {
+    computerToggle.textContent = "Play with Computer";
+  }
+}
+
+
 function handleCellClick(event) {
-  const clickedCell = event.target; // cell that the player clicked
-  const cellIndex = clickedCell.getAttribute("data-cell-index"); // gets the value of the clicked cell
+  const clickedCell = event.target;
+  const cellIndex = clickedCell.getAttribute("data-cell-index");
 
-  // stops the game when the winner is decided
   if (gameBoard[cellIndex] !== "" || checkWinner(gameBoard)) {
     return;
   }
 
-  game = game === "X" ? "O" : "X"; // Changes the letter depending on the turn
-  gameBoard[cellIndex] = game; // Inputs the value to the gameBoard
-  clickedCell.textContent = game; // Inputs the value to the clicked cell
+  game = currentPlayer === "Player 1" ? "X" : "O";
+  gameBoard[cellIndex] = game;
+  clickedCell.textContent = game;
 
-  // If check winner function matches a winningCombination
   if (checkWinner(gameBoard)) {
     turnDisplay.textContent = `${currentPlayer} wins!`;
   } else if (!gameBoard.includes("")) {
-    turnDisplay.textContent = "It's a draw!"; // If gameBoard doesn't have an empty space or string
+    turnDisplay.textContent = "It's a draw!";
   } else {
-    // If checkwinner function haven't matches to a winning combination yet and there is a space in gameBoard
     currentPlayer = currentPlayer === "Player 1" ? "Player 2" : "Player 1";
     turnDisplay.textContent = `${currentPlayer}'s turn`;
+
+    if (currentPlayer === "Player 2") {
+      setTimeout(makeComputerMove, 1000); // Delay computer's move for 1 second
+    }
   }
 }
 
+function makeComputerMove() {
+  if (!isComputerPlayer) {
+    return; // Stop the function if computer player mode is disabled
+  }
+  // Implement logic for the computer's move here
+  let emptyCells = gameBoard.reduce((acc, cell, index) => {
+    if (cell === "") {
+      acc.push(index);
+    }
+    return acc;
+  }, []);
+
+  // Choose a random empty cell for the computer's move
+  const randomIndex = Math.floor(Math.random() * emptyCells.length);
+  const computerMoveIndex = emptyCells[randomIndex];
+
+  game = currentPlayer === "Player 1" ? "X" : "O";
+  gameBoard[computerMoveIndex] = game;
+  cells[computerMoveIndex].textContent = game;
+
+  if (checkWinner(gameBoard)) {
+    turnDisplay.textContent = `${currentPlayer} wins!`;
+  } else if (!gameBoard.includes("")) {
+    turnDisplay.textContent = "It's a draw!";
+  } else {
+    currentPlayer = currentPlayer === "Player 1" ? "Player 2" : "Player 1";
+    turnDisplay.textContent = `${currentPlayer}'s turn`;
+  }
+  if (isComputerPlayer && currentPlayer === "Player 2") {
+    setTimeout(makeComputerMove, 1000);
+  }
+}
 // Function to check game winner
 function checkWinner(board) {
   const winningCombination = [
@@ -60,6 +106,10 @@ function restartGame() {
   cells.forEach((cell) => (cell.textContent = ""));
 }
 
+
 // Puts an event listener to each of the cells that calls HandCellClick Function
 cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
 restartButton.addEventListener("click", restartGame);
+computerToggle.addEventListener("click", toggleComputerPlayer);
+
+
