@@ -8,16 +8,19 @@ let gameBoard = ["", "", "", "", "", "", "", "", ""]; // Initial column spaces v
 let isComputerPlayer = false;
 let currentPlayer = "Player 1"; // Add currentPlayer variable to keep track of the current player
 
+// choose mode
+const chooseModeContainer = document.getElementById("mode");
+const boardContainer = document.getElementById("game");
 
-function toggleComputerPlayer() {
-  isComputerPlayer = !isComputerPlayer;
-  if (isComputerPlayer) {
-    computerToggle.textContent = "Play with Another Player";
+const gameMode = (param) => {
+  chooseModeContainer.style.display = "none";
+  boardContainer.style.display = "block";
+  if (param === "ai") {
+    isComputerPlayer = true;
   } else {
-    computerToggle.textContent = "Play with Computer";
+    isComputerPlayer = false;
   }
-}
-
+};
 
 function handleCellClick(event) {
   const clickedCell = event.target;
@@ -106,10 +109,7 @@ function restartGame() {
   cells.forEach((cell) => (cell.textContent = ""));
 }
 
-
 // Puts an event listener to each of the cells that calls HandCellClick Function
 cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
 restartButton.addEventListener("click", restartGame);
 computerToggle.addEventListener("click", toggleComputerPlayer);
-
-
