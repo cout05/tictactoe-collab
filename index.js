@@ -1,7 +1,5 @@
 const cells = document.querySelectorAll(".row");
 const turnDisplay = document.getElementById("turn");
-const restartButton = document.getElementById("restartButton");
-const computerToggle = document.getElementById("computerToggle");
 
 let game = "X"; // Letter to input
 let gameBoard = ["", "", "", "", "", "", "", "", ""]; // Initial column spaces value
@@ -20,6 +18,11 @@ const gameMode = (param) => {
   } else {
     isComputerPlayer = false;
   }
+};
+
+const backToMenu = () => {
+  chooseModeContainer.style.display = "block";
+  boardContainer.style.display = "none";
 };
 
 function handleCellClick(event) {
@@ -112,5 +115,3 @@ function restartGame() {
 
 // Puts an event listener to each of the cells that calls HandCellClick Function
 cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
-restartButton.addEventListener("click", restartGame);
-computerToggle.addEventListener("click", toggleComputerPlayer);
