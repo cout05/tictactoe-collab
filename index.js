@@ -70,7 +70,7 @@ function makeComputerMove() {
 
   if (checkWinner(gameBoard)) {
     turnDisplay.textContent = `${currentPlayer} wins!`;
-    return; // stops the random output when computer wins
+    return; // stops the computer when it wins
   } else if (!gameBoard.includes("")) {
     turnDisplay.textContent = "It's a draw!";
   } else {
