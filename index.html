@@ -18,25 +18,29 @@
     </div>
 
     <div class="board-container" id="game">
-      <div class="column">
-        <div class="row" data-cell-index="0"></div>
-        <div class="row" data-cell-index="1"></div>
-        <div class="row" data-cell-index="2"></div>
-      </div>
-      <div class="column">
-        <div class="row" data-cell-index="3"></div>
-        <div class="row" data-cell-index="4"></div>
-        <div class="row" data-cell-index="5"></div>
-      </div>
-      <div class="column">
-        <div class="row" data-cell-index="6"></div>
-        <div class="row" data-cell-index="7"></div>
-        <div class="row" data-cell-index="8"></div>
+      <h2 id="mode-ind"></h2>
+
+      <div>
+        <div class="column">
+          <div class="row" data-cell-index="0"></div>
+          <div class="row" data-cell-index="1"></div>
+          <div class="row" data-cell-index="2"></div>
+        </div>
+        <div class="column">
+          <div class="row" data-cell-index="3"></div>
+          <div class="row" data-cell-index="4"></div>
+          <div class="row" data-cell-index="5"></div>
+        </div>
+        <div class="column">
+          <div class="row" data-cell-index="6"></div>
+          <div class="row" data-cell-index="7"></div>
+          <div class="row" data-cell-index="8"></div>
+        </div>
       </div>
       <h3 class="turn" id="turn">Player 1's turn</h3>
       <div class="buttons-con">
+        <button class="button" onclick="backToMenu()">Back to Menu</button>
         <button class="button" onclick="restartGame()">Restart Game</button>
-        <button class="button" onclick="backToMenu()">back to menu</button>
       </div>
     </div>
 
