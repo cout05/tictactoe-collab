@@ -81,7 +81,7 @@ function checkPlayerMove(gameBoard) {
     if (boardCopy[i] === "") {
       // Make the move on the copy of the board.
       boardCopy[i] = "O";
-      // Check if the move would win the game for the player.
+      // Check if the move would win the game for the computer.
       if (checkWinner(boardCopy, "O")) {
         // returns an index for the move
         return i;
@@ -103,7 +103,7 @@ function blockPlayerMove(gameBoard) {
     if (boardCopy[i] === "") {
       // Make the move on the copy of the board.
       boardCopy[i] = "X";
-      // Check if the move would win the game for the computer.
+      // Check if the move would win the game for the player.
       if (checkWinner(boardCopy, "X")) {
         // returns an index for the move
         return i;
