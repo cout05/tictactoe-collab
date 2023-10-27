@@ -1,6 +1,7 @@
 const cells = document.querySelectorAll(".row");
 const turnDisplay = document.getElementById("turn");
 const modeInd = document.getElementById("mode-ind");
+const trashtalk = document.getElementById("tt");
 
 let game = "X"; // Letter to input
 let gameBoard = ["", "", "", "", "", "", "", "", ""]; // Initial column spaces value
@@ -16,6 +17,8 @@ const gameMode = (param) => {
   boardContainer.style.display = "flex";
   if (param === "ai") {
     isComputerPlayer = true;
+    currentPlayer = false;
+    setTimeout(makeComputerMove, 500);
     modeInd.textContent = "Player Vs Computer";
   } else {
     modeInd.textContent = "Player Vs Player";
@@ -25,11 +28,18 @@ const gameMode = (param) => {
 
 function restartGame() {
   gameBoard = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "Player 1";
-  turnDisplay.textContent = `${currentPlayer}'s turn`;
+  if (isComputerPlayer) {
+    currentPlayer = false;
+    turnDisplay.textContent = `computer's turn`;
+    setTimeout(makeComputerMove, 1000);
+  } else {
+    currentPlayer = true;
+    turnDisplay.textContent = `Player${currentPlayer ? " 1" : " 2"}'s turn`;
+  }
   cells.forEach((cell) => (cell.textContent = ""));
   cells.forEach((cell) => cell.classList.remove("x"));
   cells.forEach((cell) => cell.classList.remove("o"));
+  trashtalk.style.display = "none";
 }
 
 const backToMenu = () => {
@@ -43,6 +53,10 @@ function handleCellClick(event) {
   const cellIndex = clickedCell.getAttribute("data-cell-index");
 
   if (gameBoard[cellIndex] !== "" || checkWinner(gameBoard)) {
+    return;
+  }
+
+  if (!currentPlayer && isComputerPlayer) {
     return;
   }
 
@@ -155,9 +169,12 @@ function makeComputerMove() {
     turnDisplay.textContent = `${
       currentPlayer && !isComputerPlayer ? "Player 1" : "Computer"
     } wins!`;
+    trashtalk.style.display = `${!currentPlayer ? "block" : "none"}`;
+
     return; // stops the computer when it wins
   } else if (!gameBoard.includes("")) {
     turnDisplay.textContent = "It's a draw!";
+    trashtalk.style.display = "block";
   } else {
     currentPlayer = currentPlayer ? false : true;
     turnDisplay.textContent = `${

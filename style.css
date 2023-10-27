@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap");
 
 * {
   margin: 0;
@@ -9,13 +9,14 @@
   --pink: #ff00ae;
   --sky-blue: #00d0ff;
   --yellow: #f6edbf;
+  --white: #fbfafb;
 }
 
 body {
   padding: 0;
   margin: 0;
-  border-left: 2px solid #fbfafb;
-  border-right: 2px solid #fbfafb;
+  border-left: 2px solid var(--white);
+  border-right: 2px solid var(--white);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +24,7 @@ body {
   height: 100vh;
   font-family: "Nunito", sans-serif;
   background-color: #051031;
-  color: #fbfafb;
+  color: var(--white);
 }
 
 h1 {
@@ -36,8 +37,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 60vh;
+  margin-top: 100px;
   gap: 1rem;
 }
 
@@ -52,9 +52,9 @@ h1 {
   cursor: pointer;
   padding: 5px;
   text-align: center;
-  border: 2px solid #fbfafb;
+  border: 2px solid var(--white);
   border-radius: 10px;
-  color: #fbfafb;
+  color: var(--white);
   background-color: transparent;
   text-shadow: 0 0 10px var(--yellow);
   animation: glow2 1.5s ease infinite;
@@ -80,7 +80,7 @@ h1 {
   width: 100px;
   height: 100px;
   cursor: pointer;
-  border-bottom: 4px solid #fbfafb;
+  border-bottom: 4px solid var(--white);
 }
 
 .row[data-cell-index="6"],
@@ -90,11 +90,11 @@ h1 {
 }
 
 .row:nth-child(2) {
-  border-right: 4px solid #fbfafb;
+  border-right: 4px solid var(--white);
 }
 
 .row:nth-child(1) {
-  border-right: 4px solid #fbfafb;
+  border-right: 4px solid var(--white);
 }
 
 .buttons-con {
@@ -107,9 +107,9 @@ h1 {
   font-size: 1.2rem;
   padding: 10px;
   cursor: pointer;
-  border: 2px solid #fbfafb;
+  border: 2px solid var(--white);
   border-radius: 10px;
-  color: #fbfafb;
+  color: var(--white);
   background-color: transparent;
   text-shadow: 0 0 10px var(--yellow);
   margin-bottom: 5px;
@@ -123,6 +123,41 @@ h1 {
 .o {
   text-shadow: 0 0 10px var(--pink);
   animation: glow1 3s ease infinite;
+}
+
+.tt > h1 {
+  color: var(--white);
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.tt {
+  background-color: rgb(251, 250, 251, 0.5);
+  backdrop-filter: blur(5px);
+  display: none;
+  text-align: center;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 0px 20px rgb(246, 237, 191, 0.8);
+  padding: 0 5px;
+  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  animation: fadeInOut 2s ease-in;
+  text-shadow: 0 0 10px var(--yellow);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes glow {
