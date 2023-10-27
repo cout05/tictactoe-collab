@@ -16,7 +16,7 @@ const gameMode = (param) => {
   boardContainer.style.display = "flex";
   if (param === "ai") {
     isComputerPlayer = true;
-    modeInd.textContent = "Player Vs AI";
+    modeInd.textContent = "Player Vs Computer";
   } else {
     modeInd.textContent = "Player Vs Player";
     isComputerPlayer = false;
@@ -74,19 +74,19 @@ function handleCellClick(event) {
 
 function checkPlayerMove(gameBoard) {
   // Create a copy of the game board.
-  const boardCopy = [...gameBoard];
+  let boardCopy = [...gameBoard];
 
   // Iterate over all empty squares on the board.
   for (let i = 0; i <= 9; i++) {
     if (boardCopy[i] === "") {
       // Make the move on the copy of the board.
-      boardCopy[i] = "X";
-
+      boardCopy[i] = "O";
       // Check if the move would win the game for the player.
-      if (checkWinner(boardCopy, "X")) {
+      if (checkWinner(boardCopy, "O")) {
         // returns an index for the move
         return i;
       }
+      boardCopy = [...gameBoard];
     }
   }
 
@@ -96,19 +96,19 @@ function checkPlayerMove(gameBoard) {
 
 function blockPlayerMove(gameBoard) {
   // Create a copy of the game board.
-  const boardCopy = [...gameBoard];
+  let boardCopy = [...gameBoard];
 
   // Iterate over all empty squares on the board.
   for (let i = 0; i <= 9; i++) {
     if (boardCopy[i] === "") {
       // Make the move on the copy of the board.
-      boardCopy[i] = "O";
-
+      boardCopy[i] = "X";
       // Check if the move would win the game for the computer.
-      if (checkWinner(boardCopy, "O")) {
+      if (checkWinner(boardCopy, "X")) {
         // returns an index for the move
         return i;
       }
+      boardCopy = [...gameBoard];
     }
   }
 
@@ -130,29 +130,26 @@ function makeComputerMove() {
     return acc;
   }, []);
 
-  if (emptyCells.length > 0) {
-    const blockMove = blockPlayerMove(gameBoard);
-    const checkMove = checkPlayerMove(gameBoard);
-    if (blockMove !== null) {
-      // Check if the player can win on their next move and block them
-      gameBoard[blockMove] = game;
-      cells[blockMove].textContent = game;
-      cells[blockMove].classList.add(`${game === "X" ? "x" : "o"}`);
-    } else if (checkMove !== null) {
-      // Checks if the computers move can win the game
-      gameBoard[checkMove] = game;
-      cells[checkMove].textContent = game;
-      cells[checkMove].classList.add(`${game === "X" ? "x" : "o"}`);
-    } else {
-      // If no immediate winning or blocking moves are available, make a random move
-      const randomIndex = Math.floor(Math.random() * emptyCells.length);
-      const computerMoveIndex = emptyCells[randomIndex];
-      game = currentPlayer === "Player 1" ? "X" : "O";
-      gameBoard[computerMoveIndex] = game;
-      cells[computerMoveIndex].textContent = game;
-      cells[computerMoveIndex].classList.add(`${game === "X" ? "x" : "o"}`);
-    }
+  const blockMove = blockPlayerMove(gameBoard);
+  const checkMove = checkPlayerMove(gameBoard);
+  let move = 0;
+
+  if (checkMove !== null) {
+    // Checks if the computers move can win the game
+    move = checkMove;
+  } else if (checkMove === null && blockMove !== null) {
+    // Check if the player can win on their next move and block them
+    move = blockMove;
+  } else {
+    // If no immediate winning or blocking moves are available, make a random move
+    const randomIndex = Math.floor(Math.random() * emptyCells.length);
+    const computerMoveIndex = emptyCells[randomIndex];
+    move = computerMoveIndex;
   }
+
+  gameBoard[move] = game;
+  cells[move].textContent = game;
+  cells[move].classList.add(`${game === "X" ? "x" : "o"}`);
 
   if (checkWinner(gameBoard)) {
     turnDisplay.textContent = `${
