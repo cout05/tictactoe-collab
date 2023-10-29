@@ -28,9 +28,9 @@ body {
 }
 
 h1 {
-  font-size: 2.5rem;
-  font-weight: 400;
   padding-top: 20px;
+  filter: drop-shadow(2px 1px 0 var(--sky-blue))
+    drop-shadow(-2px 1px 0 var(--pink)) brightness(100%);
 }
 
 .choose-mode-container {
